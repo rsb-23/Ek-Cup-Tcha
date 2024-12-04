@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        width: 300px;
+        padding: 10px;
+      }
+      button {
+        width: 100%;
+        margin: 5px;
+        padding: 8px;
+      }
+      #apiKeyInput {
+        width: calc(100% - 20px);
+        margin: 10px 0;
+      }
+      .status {
+        font-size: 14px;
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="apiKeyInput">Enter Groq API Key:</label>
+    <input type="text" id="apiKeyInput" placeholder="Your Groq API Key" />
+    <button id="saveApiKey">Save API Key</button>
+    <div id="status" class="status"></div>
+    <script src="setup.js"></script>
+    <script src="browser-polyfill.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        width: 300px;
+        padding: 10px;
+      }
+      button {
+        width: 100%;
+        margin: 5px;
+        padding: 8px;
+      }
+      #captchaPreview {
+        max-width: 100%;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+      }
+      .status {
+        color: #666;
+        font-size: 14px;
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="captchaContainer">
+      <p class="status">Detected CAPTCHA:</p>
+      <img id="captchaPreview" alt="CAPTCHA preview" style="display: none" />
+    </div>
+    <button id="solveCaptcha">Solve CAPTCHA</button>
+    <p id="status" class="status"></p>
+    <script src="popup.js"></script>
+    <script src="browser-polyfill.min.js"></script>
+  </body>
+</html>
