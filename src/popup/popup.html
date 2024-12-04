@@ -10,11 +10,30 @@
         width: 100%;
         margin: 5px;
         padding: 8px;
+        cursor: pointer;
+      }
+      .button-container {
+        display: flex;
+        gap: 5px;
+      }
+      #refreshButton {
+        width: 40px;
+        padding: 5px;
+      }
+      .preview-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 50px;
+        border: 1px dashed #ccc;
+        margin: 2px 0;
+        padding: 2px;
       }
       #captchaPreview {
         max-width: 100%;
         margin: 10px 0;
         border: 1px solid #ccc;
+        align-self: right;
       }
       .status {
         color: #666;
@@ -25,8 +44,13 @@
   </head>
   <body>
     <div id="captchaContainer">
-      <p class="status">Detected CAPTCHA:</p>
-      <img id="captchaPreview" alt="CAPTCHA preview" style="display: none" />
+      <div class="button-container">
+        <p class="status">Detected CAPTCHA:</p>
+        <button id="refreshButton" hidden>🔃</button>
+      </div>
+      <div class="preview-container">
+        <img id="captchaPreview" alt="CAPTCHA preview" style="display: none" />
+      </div>
     </div>
     <button id="solveCaptcha">Solve CAPTCHA</button>
     <p id="status" class="status"></p>

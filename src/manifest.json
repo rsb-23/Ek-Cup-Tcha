@@ -1,14 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Ek-Cup-Tcha",
-  "version": "1.0",
+  "version": "0.1.0",
   "permissions": ["activeTab", "scripting", "storage"],
   "background": {
     "service_worker": "service-worker.js"
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://*/*"],
       "js": ["content.js"]
     }
   ],
@@ -27,5 +27,6 @@
     "16": "assets/icon16.png",
     "48": "assets/icon48.png",
     "128": "assets/icon128.png"
-  }
+  },
+  "update_url": "https://raw.githubusercontent.com/rsb-23/ek-cup-tcha/main/updates.json"
 }

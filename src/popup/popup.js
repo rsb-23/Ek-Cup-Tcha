@@ -10,12 +10,11 @@ async function checkApiKey() {
   return true;
 }
 
-document.addEventListener("DOMContentLoaded", checkApiKey);
+async function fetchCaptcha() {
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const response = await chrome.tabs.sendMessage(tab.id, { action: "getCaptcha" });
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const [tab] = await browserAPI.tabs.query({ active: true, currentWindow: true });
-
-  browserAPI.tabs.sendMessage(tab.id, { action: "getCaptcha" }, (response) => {
     if (response && response.captchaImage) {
       document.getElementById("captchaPreview").src = response.captchaImage;
       document.getElementById("captchaPreview").style.display = "block";
@@ -23,17 +22,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       document.getElementById("status").textContent = "No CAPTCHA found on this page.";
     }
-  });
+  } catch (error) {
+    document.getElementById("status").textContent = "Error fetching CAPTCHA.";
+  }
+}
 
-  document.getElementById("solveCaptcha").addEventListener("click", async () => {
-    document.getElementById("status").textContent = "Solving CAPTCHA...";
-    imageUrl = document.getElementById("captchaPreview").src;
-    browserAPI.tabs.sendMessage(tab.id, { action: "solveCaptcha", imageUrl: imageUrl }, (response) => {
-      if (response && response.success) {
-        document.getElementById("status").textContent = "CAPTCHA solved!";
-      } else {
-        document.getElementById("status").textContent = "Failed to solve CAPTCHA.";
-      }
-    });
+document.addEventListener("DOMContentLoaded", async () => {
+  checkApiKey();
+  fetchCaptcha();
+});
+
+document.getElementById("refreshButton").addEventListener("click", fetchCaptcha);
+
+document.getElementById("solveCaptcha").addEventListener("click", async () => {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  document.getElementById("status").textContent = "Solving CAPTCHA...";
+  imageUrl = document.getElementById("captchaPreview").src;
+  browserAPI.tabs.sendMessage(tab.id, { action: "solveCaptcha", imageUrl: imageUrl }, (response) => {
+    if (response && response.success) {
+      document.getElementById("status").textContent = "CAPTCHA solved!";
+    } else {
+      document.getElementById("status").textContent = "Failed to solve CAPTCHA.";
+    }
   });
 });
