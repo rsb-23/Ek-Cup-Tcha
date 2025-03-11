@@ -31,7 +31,7 @@ async function getApiKey() {
 
 async function solveCaptchaWithLLM(imageUrl) {
   const API_KEY = await getApiKey();
-  console.log(API_KEY);
+  // console.log(API_KEY);
   if (!API_KEY) {
     throw new Error("API key not configured");
   }
@@ -54,7 +54,7 @@ async function solveCaptchaWithLLM(imageUrl) {
             content: [
               {
                 type: "text",
-                text: "Read this captcha text image and answer in 1 word. text is alpha-numeric only",
+                text: "Read this captcha text image and answer in json format {'text': string}. text is alpha-numeric only",
               },
               { type: "image_url", image_url: { url: base64Image } },
             ],
@@ -65,13 +65,15 @@ async function solveCaptchaWithLLM(imageUrl) {
         max_tokens: 1024,
         top_p: 1,
         stream: false,
+        response_format: { type: "json_object" },
         stop: null,
       }),
     });
 
     const data = await result.json();
-    console.log(data.choices[0].message.content);
-    const captchaText = data.choices[0].message.content;
+    const content = JSON.parse(data.choices[0].message.content);
+    console.log(content, typeof content);
+    const captchaText = content["text"];
 
     const inputField = findCaptchaInput();
     if (inputField) {

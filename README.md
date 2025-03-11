@@ -1,4 +1,7 @@
-# Ek-Cup-Tcha
+<h1>
+  <img src="icon.png" width="96" style="vertical-align: middle;">
+  <span style="vertical-align: middle;">Ek-Cup-Tcha</span>
+</h1>
 
 Captcha solver extension
 
