@@ -23,6 +23,7 @@ async function fetchCaptcha() {
       document.getElementById("status").textContent = "No CAPTCHA found on this page.";
     }
   } catch (error) {
+    console.log("fetch error -", error);
     document.getElementById("status").textContent = "Error fetching CAPTCHA.";
   }
 }

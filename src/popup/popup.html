@@ -7,24 +7,26 @@
         padding: 10px;
       }
       button {
+        cursor: pointer;
+      }
+      #solveCaptcha {
         width: 100%;
         margin: 5px;
         padding: 8px;
-        cursor: pointer;
       }
       .button-container {
         display: flex;
-        gap: 5px;
+        justify-content: space-between;
       }
       #refreshButton {
-        width: 40px;
-        padding: 5px;
+        width: fit-content;
+        border: none;
       }
       .preview-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 50px;
+        min-height: 60px;
         border: 1px dashed #ccc;
         margin: 2px 0;
         padding: 2px;
@@ -46,7 +48,7 @@
     <div id="captchaContainer">
       <div class="button-container">
         <p class="status">Detected CAPTCHA:</p>
-        <button id="refreshButton" hidden>🔃</button>
+        <button id="refreshButton"><img src="refresh.svg" height="15px" /></button>
       </div>
       <div class="preview-container">
         <img id="captchaPreview" alt="CAPTCHA preview" style="display: none" />
