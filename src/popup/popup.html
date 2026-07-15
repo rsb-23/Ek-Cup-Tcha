@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <style>
@@ -8,6 +8,10 @@
       }
       button {
         cursor: pointer;
+      }
+      footer {
+        display: flex;
+        justify-content: space-evenly;
       }
       #solveCaptcha {
         width: 100%;
@@ -42,6 +46,10 @@
         font-size: 14px;
         margin: 5px 0;
       }
+      #captchaCopy {
+        border-style: dotted;
+        font-size: medium;
+      }
     </style>
   </head>
   <body>
@@ -55,7 +63,10 @@
       </div>
     </div>
     <button id="solveCaptcha">Solve CAPTCHA</button>
-    <p id="status" class="status"></p>
+    <footer>
+      <p id="status" class="status"></p>
+      <button id="captchaCopy" hidden>XXXXX</button>
+    </footer>
     <script src="popup.js"></script>
     <!-- <script src="browser-polyfill.min.js"></script> -->
   </body>

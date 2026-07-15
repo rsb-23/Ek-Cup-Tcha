@@ -13,7 +13,7 @@ async function checkApiKey() {
 async function fetchCaptcha() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    const response = await chrome.tabs.sendMessage(tab.id, { action: "getCaptcha" });
+    const response = await browserAPI.tabs.sendMessage(tab.id, { action: "getCaptcha" });
 
     if (response && response.captchaImage) {
       document.getElementById("captchaPreview").src = response.captchaImage;
@@ -33,6 +33,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   fetchCaptcha();
 });
 
+document.getElementById("captchaCopy").addEventListener("click", async function () {
+  await navigator.clipboard.writeText(this.textContent);
+  console.log("Copied:", this.textContent);
+});
+
 document.getElementById("refreshButton").addEventListener("click", fetchCaptcha);
 
 document.getElementById("solveCaptcha").addEventListener("click", async () => {
@@ -42,6 +47,9 @@ document.getElementById("solveCaptcha").addEventListener("click", async () => {
   browserAPI.tabs.sendMessage(tab.id, { action: "solveCaptcha", imageUrl: imageUrl }, (response) => {
     if (response && response.success) {
       document.getElementById("status").textContent = "CAPTCHA solved!";
+      let captchaText = document.getElementById("captchaCopy");
+      captchaText.textContent = response.answer;
+      captchaText.hidden = false;
     } else {
       document.getElementById("status").textContent = "Failed to solve CAPTCHA.";
     }
