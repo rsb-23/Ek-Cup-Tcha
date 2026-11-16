@@ -44,7 +44,7 @@ function captureRenderedCaptcha(captchaElement) {
 function findCaptchaImage() {
   console.log("finding Captcha image");
   const captchaImg = document.querySelector(
-    'img[src*="captcha" i], img[id*="captcha" i], img[name*="captcha" i], img[alt*="captcha" i], img[class*="captcha" i]'
+    'img:is([src*="captcha" i], [id*="captcha" i], [name*="captcha" i], [alt*="captcha" i], [class*="captcha" i])'
   );
 
   if (captchaImg) {
@@ -56,7 +56,9 @@ function findCaptchaImage() {
 
 function findCaptchaInput() {
   return (
-    document.querySelector('input[type="text"][name*="captcha" i], input[type="text"][id*="captcha" i], input[name*="captcha" i]') ||
+    document.querySelector(
+      'input[type="text"]:is([name*="captcha" i], [id*="captcha" i], [aria-label*="captcha" i])'
+    ) ||
     document.getElementById(
       document.evaluate(
         "//label[contains(text(), 'Captcha')]",
@@ -78,6 +80,7 @@ async function getApiKey() {
 }
 
 async function solveCaptchaWithLLM(base64Image) {
+  base64Image = base64Image.replace(/\s/g, "");
   const API_KEY = await getApiKey();
   if (!API_KEY) {
     throw new Error("API key not configured");
@@ -103,8 +106,8 @@ async function solveCaptchaWithLLM(base64Image) {
             ],
           },
         ],
-        model: "meta-llama/llama-4-scout-17b-16e-instruct",
-        // model: "qwen/qwen3.6-27b",
+
+        model: "qwen/qwen3.8-27b",
         temperature: 1,
         max_tokens: 1024,
         top_p: 1,

@@ -5,6 +5,10 @@
         {
           "version": "0.1.0",
           "update_link": "https://github.com/rsb-23/ek-cup-tcha/releases/download/v0.1.0/ekcuptcha.zip"
+        },
+        {
+          "version": "0.2.0",
+          "update_link": "https://github.com/rsb-23/ek-cup-tcha/releases/download/v0.2.0/ekcuptcha.zip"
         }
       ]
     }
